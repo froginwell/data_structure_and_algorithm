@@ -1,5 +1,9 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+
 """
-最大子数组和
+最大连续子数组和
 """
 
 
