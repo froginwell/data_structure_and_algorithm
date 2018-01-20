@@ -4,30 +4,41 @@
 #include "single_linked_list.h"
 
 
-void destroy(void *elem){
-    free(elem);
-}
-
-
-void test(){
+void test1(){
     SingleLinkedList sllist;
-    single_linked_list_init(&sllist, sizeof(int), destroy, NULL);
+    single_linked_list_init(&sllist);
+
     for(int i = 0; i < 4; i++){
-        single_linked_list_insert(&sllist, &i, -1);
+        single_linked_list_append(&sllist, (int *)i);
     }
-    int j = 100;
-    printf("size: %d\n", sllist.size);
-    single_linked_list_insert(&sllist, &j, 0);
     printf("size: %d\n", sllist.size);
     Node *head = sllist.head;
     while(head){
-        printf("%d\n", *(int *)(head -> elem));
+        printf("%d\n", (int)(head -> data));
         head = head -> next;
     }
-    single_linked_list_destroy(&sllist);
+    single_linked_list_free(&sllist);
+}
+
+
+void test2(){
+    SingleLinkedList sllist;
+    single_linked_list_init(&sllist);
+
+    for(int i = 0; i < 4; i++){
+        single_linked_list_append(&sllist, "aa");
+    }
+    printf("size: %d\n", sllist.size);
+    Node *head = sllist.head;
+    while(head){
+        printf("%s\n", (char *)(head -> data));
+        head = head -> next;
+    }
+    single_linked_list_free(&sllist);
 }
 
 
 int main(){
-    test();
+    test1();
+    test2();
 }

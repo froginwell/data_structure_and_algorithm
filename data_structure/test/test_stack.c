@@ -4,31 +4,33 @@
 #include "stack.h"
 
 
-void destroy_string(void *elem){
-    free(*(char **)elem);
+void test_int(){
+    Stack stk;
+    stack_init(&stk);
+    stack_push(&stk, (void *)1);
+    stack_push(&stk, (void *)2);
+    printf("stack_size: %d\n", stk.size);
+    printf("%d\n", (int)stack_pop(&stk));
+    printf("%d\n", (int)stack_pop(&stk));
+    printf("stack_size: %d\n", stk.size);
+    stack_free(&stk);
 }
 
 
-void test_stack(){
-    char *str[] = {"ab", "cd", "ef"};
+void test_string(){
     Stack stk;
-    stack_init(&stk, sizeof(char *), destroy_string);
-    for(int i = 0; i < 3; i++){
-        char *temp = strdup(str[i]);
-        stack_push(&stk, &temp);
-        printf("stack_size: %d\n", stack_size(&stk));
-    }
-    char *temp = NULL;
-    for(int i = 0; i < 3; i++){
-        stack_pop(&stk, &temp);
-        printf("%s\n", temp);
-        printf("stack_size: %d\n", stack_size(&stk));
-        free(temp);
-    }
-    stack_destroy(&stk);
+    stack_init(&stk);
+    stack_push(&stk, "abc");
+    stack_push(&stk, "def");
+    printf("stack_size: %d\n", stk.size);
+    printf("%s\n", (char *)stack_pop(&stk));
+    printf("%s\n", (char *)stack_pop(&stk));
+    printf("stack_size: %d\n", stk.size);
+    stack_free(&stk);
 }
 
 
 int main(){
-    test_stack();
+    test_int();
+    test_string();
 }
